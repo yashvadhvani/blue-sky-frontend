@@ -17,7 +17,7 @@ function App() {
     undefined
   );
 
-  const { isFetching, isFetched, data } = useQuery({
+  const { isFetching, data } = useQuery({
     queryFn: fetchAllStates,
     queryKey: ["states"],
   });
@@ -44,7 +44,7 @@ function App() {
             {isFetching && (
               <Skeleton variant="rectangular" height={100} animation="wave" />
             )}
-            {isFetched && (
+            {data && (
               <SelectState
                 options={data}
                 value={selectedState}
