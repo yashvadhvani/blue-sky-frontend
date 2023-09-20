@@ -8,7 +8,7 @@ import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
 import TablePagination from "@mui/material/TablePagination";
 import Skeleton from "@mui/material/Skeleton";
-import  Typography  from "@mui/material/Typography";
+import Typography from "@mui/material/Typography";
 
 import { useQuery } from "@tanstack/react-query";
 import { fetchStateWisePeople } from "../api/people";
@@ -19,7 +19,7 @@ const PeopleList = ({
   selectedState: number | undefined;
 }) => {
   const [page, setPage] = useState(1);
-  const [total, setTotal] = useState(0);
+  const [isLastPage, setIsLastPage] = useState(false);
   const [people, setPeople] = useState<
     {
       first_name: string;
@@ -38,7 +38,7 @@ const PeopleList = ({
   useEffect(() => {
     if (data) {
       setPeople(() => data.data);
-      setTotal(() => data.count);
+      setIsLastPage(() => data.isLastPage);
     }
   }, [data]);
 
@@ -95,10 +95,13 @@ const PeopleList = ({
           </TableContainer>
           <TablePagination
             component="div"
-            count={total}
+            count={-1}
             page={page - 1}
             onPageChange={handleChangePage}
             rowsPerPage={10}
+            nextIconButtonProps={{
+              disabled: isLastPage,
+            }}
           />
         </>
       )}

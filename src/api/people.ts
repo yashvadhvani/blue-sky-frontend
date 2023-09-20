@@ -4,7 +4,7 @@ export const fetchStateWisePeople = async (
   page: number
 ) => {
   const response = await fetch(
-    `${BACKEND_URL}/people/${selectedState}?page=${page}&limit=${10}`
+    `${BACKEND_URL}/people/state/${selectedState}?page=${page}&limit=${10}`
   );
   const result = await response.json();
   return result;
